@@ -5,21 +5,85 @@ On <Date>, <Reviewer Name> wrote:
 Your specific technical response here. Be concise and direct.
 Address the exact concern raised.
 
+If the reviewer is correct:
+"You're absolutely right. I'll fix this in v2."
+
+If you need clarification:
+"Could you clarify what you mean by X? I want to make sure I 
+understand the concern correctly."
+
+If providing additional context:
+"This approach was chosen because of Y constraint. However, 
+if you prefer approach Z, I can change it."
+
 > Another specific point from the reviewer?
 
-Another focused response. If you agree, say so. If you disagree,
-explain technically why, and propose alternatives.
+Another focused response. Examples:
+
+For technical corrections:
+"Good catch! The locking is indeed wrong. I'll use mutex_lock() 
+instead as you suggested."
+
+For design feedback:
+"I see your point about the API design. The alternative would be
+to use X approach, which would simplify the caller code. Let me
+know if you prefer that direction."
+
+For testing questions:
+"I tested this on x86_64 with CONFIG_DEBUG_KERNEL=y and ran the
+stress test for 24 hours without issues. Should I test on other
+architectures as well?"
 
 > Any requests for changes?
 
-Will fix in v2. [Or explain why the current approach is correct]
+Will fix in v2. Timeline: I'll submit v2 tomorrow after addressing
+all the feedback. [Or explain why the current approach is correct
+with technical reasoning]
 
-Thanks for the review!
+Thanks for the detailed review! Your feedback helps improve the code.
 
 ---
-REMINDERS:
-- Never top-post (reply above the quotes)
-- Trim quotes to relevant parts only
-- Be technical, not emotional
-- If wrong, admit it and fix it
-- Thank reviewers even if they're harsh
+LFD103 COMMUNICATION GUIDELINES:
+
+DO:
+- Be respectful and professional at all times
+- Respond to each point specifically
+- Admit mistakes immediately and thank reviewers
+- Provide technical reasoning for your choices
+- Ask for clarification when needed
+- Keep emails focused and concise
+- Use proper email etiquette (no top-posting)
+- Follow up with actions promised
+
+DON'T:
+- Get defensive or emotional
+- Top-post (put your reply before the quotes)
+- Ignore any feedback points
+- Make excuses for bugs or poor code
+- Send HTML email or attachments
+- CC large lists unnecessarily
+- Argue without technical merit
+- Take criticism personally
+
+EXAMPLE GOOD RESPONSES:
+
+1. When you made a mistake:
+"You're absolutely right about the memory leak. I missed the 
+error path cleanup. Will fix in v2."
+
+2. When asking for clarification:
+"I'm not sure I understand the concern about performance.
+Could you elaborate on which specific path you think is 
+problematic?"
+
+3. When proposing alternatives:
+"I see the issue with the current approach. Would it be 
+better to use the existing helper function X instead of 
+rolling our own?"
+
+4. When providing test results:
+"I tested this change with:
+- CONFIG_DEBUG_KERNEL=y on x86_64
+- Stress test for 48 hours
+- All subsystem regression tests pass
+- No new warnings in dmesg"

@@ -1,12 +1,23 @@
 subsystem: component: Short description in imperative mood
 
-First paragraph: Describe the problem. What is broken? What are the symptoms?
-When does it happen? What is the user-visible impact? Be specific.
+Problem statement (WHY this change is needed):
+Describe the current broken behavior. What symptoms do users see?
+Under what conditions does the problem occur? Be specific about
+the impact - system crash, data corruption, performance regression, etc.
 
-Second paragraph: Explain the root cause and your solution. Why is this the
-right fix? What alternatives did you consider? Explain any tricky parts.
+Solution explanation (HOW the fix works):
+Explain the root cause of the problem. Why does this approach fix it?
+What alternatives were considered and why was this one chosen?
+If the change is complex, explain the key technical decisions.
 
-[Optional: Performance data, test results, or examples]
+Testing performed:
+- Compiled on x86_64 and arm64 with allmodconfig
+- Loaded/unloaded module 100 times without issues  
+- Ran stress test for 24 hours with no failures
+- Verified with CONFIG_DEBUG_KERNEL=y, no new warnings
+- Performance testing shows no regression
+
+[Include specific test commands or results if relevant]
 
 Fixes: 123456789abc ("subsystem: Previous commit subject here")
 Cc: stable@vger.kernel.org # v5.10+
@@ -16,11 +27,58 @@ Tested-by: Tester Name <tester@example.com>
 Reviewed-by: Reviewer Name <reviewer@example.com>
 Signed-off-by: Your Name <your.email@example.com>
 ---
-Notes for v2+ patches:
-v3: Fixed foo as suggested by Maintainer
-    Rebased on latest net-next  
-v2: Added error handling for bar
-    Fixed spacing issues
+v3: Fixed locking issue pointed out by Dan Carpenter
+    Added bounds checking as suggested by Greg KH
+    Rebased on latest net-next
+v2: Added error handling for allocation failure
+    Fixed checkpatch warnings about spacing
+    Updated commit message with more details
 v1: Initial submission
 
-Do not include anything below the --- marker in the commit message!
+LFD103 COMMIT MESSAGE GUIDELINES:
+
+STRUCTURE:
+1. Subject line: "subsystem: component: what the patch does"
+   - Use imperative mood ("fix", not "fixes" or "fixed")
+   - Keep under 50 characters when possible
+   - No period at the end
+
+2. Body paragraphs:
+   - First: Describe the PROBLEM (what's broken)
+   - Second: Describe the SOLUTION (how you fix it)
+   - Third: Testing/verification details
+
+3. Tags (in this order):
+   - Fixes: (if fixing a regression)
+   - Cc: stable (if should be backported)
+   - Link: (to previous discussion)  
+   - Reported-by/Suggested-by/Tested-by/Reviewed-by
+   - Signed-off-by (yours, always last)
+
+EXAMPLES OF GOOD SUBJECTS:
+✓ net: fix memory leak in tcp_connect()
+✓ staging: rtl8723bs: remove unnecessary typedef
+✓ mm: prevent out-of-bounds access in get_page()
+
+EXAMPLES OF BAD SUBJECTS:
+✗ Fixed a bug (too vague)
+✗ This patch fixes the issue reported yesterday (too long)
+✗ Bug fix. (not descriptive)
+
+EXAMPLES OF GOOD PROBLEM DESCRIPTIONS:
+✓ "When CONFIG_DEBUG_VM is enabled, the system crashes during boot
+   with a BUG_ON() in mm/page_alloc.c. This happens because..."
+
+✓ "Users report network timeouts when using iperf3 over wifi.
+   The issue occurs after 10-15 minutes of sustained traffic..."
+
+EXAMPLES OF BAD PROBLEM DESCRIPTIONS:
+✗ "There is a bug in the code" (too vague)
+✗ "Fix the problem" (doesn't explain what problem)
+
+KEY PRINCIPLES:
+- Explain WHY not just WHAT
+- Write for people who will read this in 5 years
+- Include enough context for non-experts
+- Be specific about symptoms and impact
+- Always include testing information
