@@ -1,0 +1,55 @@
+Subject: [PATCH 0/N] subsystem: Brief series description
+
+This series does X to achieve Y. The main goal is to improve/fix Z.
+
+The problem we're solving:
+- Current situation and why it's bad
+- Specific issues users face
+- Why this needs fixing now
+
+Our approach:
+- High-level design decision
+- Why this approach vs alternatives
+- Any tradeoffs made
+
+The series is structured as follows:
+- Patches 1-2: Preparatory cleanup
+- Patches 3-4: Core implementation  
+- Patch 5: Documentation updates
+- Patch 6: Test additions
+
+Testing:
+- Tested on X architecture with Y configuration
+- Ran Z test suite (all passed)
+- Performance impact: [numbers if relevant]
+
+Changes in v2:
+- Addressed review feedback from Maintainer
+- Split patch 3 into two logical changes
+- Added tests as requested
+
+Previous discussion:
+Link: https://lore.kernel.org/r/previous-thread@example.com
+
+Your Name (N):
+  subsystem: Clean up helper functions
+  subsystem: Add new infrastructure
+  subsystem: Implement main feature
+  subsystem: Convert existing users
+  Documentation: Update feature.rst
+  selftests: Add tests for new feature
+
+ Documentation/feature.rst    |  40 ++++
+ drivers/subsystem/driver.c   | 120 +++++++++--
+ include/linux/subsystem.h    |  15 ++
+ tools/testing/selftests/...  |  80 ++++++++
+ 4 files changed, 235 insertions(+), 20 deletions(-)
+ 
+---
+REMINDERS for cover letters:
+- Required for 2+ patches
+- Explain the "why" and big picture
+- List all patches in series
+- Include diffstat
+- Reference previous discussions
+- Version changes go here, not in individual patches

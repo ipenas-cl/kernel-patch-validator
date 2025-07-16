@@ -1,0 +1,25 @@
+# Ignore common patch files
+*.patch
+*.orig
+*.rej
+
+# Ignore temporary files
+/tmp/
+*.tmp
+*.log
+*.out
+*.err
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore backup files
+*~
+*.bak

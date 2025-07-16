@@ -1,0 +1,26 @@
+subsystem: component: Short description in imperative mood
+
+First paragraph: Describe the problem. What is broken? What are the symptoms?
+When does it happen? What is the user-visible impact? Be specific.
+
+Second paragraph: Explain the root cause and your solution. Why is this the
+right fix? What alternatives did you consider? Explain any tricky parts.
+
+[Optional: Performance data, test results, or examples]
+
+Fixes: 123456789abc ("subsystem: Previous commit subject here")
+Cc: stable@vger.kernel.org # v5.10+
+Link: https://lore.kernel.org/r/previous-discussion@example.com
+Reported-by: Reporter Name <reporter@example.com>
+Tested-by: Tester Name <tester@example.com>
+Reviewed-by: Reviewer Name <reviewer@example.com>
+Signed-off-by: Your Name <your.email@example.com>
+---
+Notes for v2+ patches:
+v3: Fixed foo as suggested by Maintainer
+    Rebased on latest net-next  
+v2: Added error handling for bar
+    Fixed spacing issues
+v1: Initial submission
+
+Do not include anything below the --- marker in the commit message!

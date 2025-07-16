@@ -1,0 +1,38 @@
+name: Validate Kernel Patches
+
+on:
+  pull_request:
+    paths:
+      - '**.patch'
+  push:
+    paths:
+      - '**.patch'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up kernel repository
+      run: |
+        git clone --depth=1 https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git kernel
+    
+    - name: Find and validate patches
+      run: |
+        echo "=== Finding patch files ==="
+        find . -name "*.patch" -type f | while read patch; do
+          echo ""
+          echo "Validating: $patch"
+          ./scripts/validate-patch.sh "$patch" "$PWD/kernel" || true
+        done
+    
+    - name: Summary
+      if: always()
+      run: |
+        echo ""
+        echo "=== Validation Complete ==="
+        echo "Check the output above for any errors or warnings."
+        echo "RED errors must be fixed before sending!"
+        echo "YELLOW warnings should be considered."
