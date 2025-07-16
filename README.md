@@ -7,6 +7,24 @@ Validate patches before sending them to Linux kernel mailing lists.
 
 After getting patches rejected multiple times by maintainers, I built this validator to catch the common mistakes that get patches rejected immediately.
 
+## Quick Usage
+
+```bash
+# Just created a patch? Validate it!
+git format-patch -1
+./scripts/validate-patch.sh 0001-your-patch.patch
+
+# Working on a patch series?
+git format-patch -3 --cover-letter
+./scripts/validate-series.sh .
+
+# Looking for your first contribution?
+./scripts/find-bugs.sh
+
+# Not sure if you're ready to contribute?
+./scripts/contribution-checklist.sh
+```
+
 ## Quick Start
 
 ```bash
@@ -199,12 +217,143 @@ cp templates/email-response.template response.txt
 # Clone the repository
 git clone https://github.com/ipenas-cl/kernel-patch-validator.git ~/kernel-patch-validator
 
-# Run the installer
+# Make scripts executable
 cd ~/kernel-patch-validator
-./INSTALL.sh
+chmod +x scripts/*.sh
 
-# Restart your shell or source your bashrc
+# Optional: Add to PATH for easy access
+echo 'export PATH="$PATH:$HOME/kernel-patch-validator/scripts"' >> ~/.bashrc
 source ~/.bashrc
+```
+
+## Quick Examples
+
+### Example 1: Validate a Simple Spelling Fix
+```bash
+# After fixing a typo in drivers/staging/rtl8723bs/
+git add -p  # Stage your changes
+git commit -m "staging: rtl8723bs: fix spelling mistake 'recieve' -> 'receive'"
+git format-patch -1
+
+# Validate before sending
+validate-patch.sh 0001-staging-rtl8723bs-fix-spelling-mistake.patch
+
+# If all checks pass, send it
+git send-email --to="Greg Kroah-Hartman <gregkh@linuxfoundation.org>" \
+               --cc="linux-staging@lists.linux.dev" \
+               0001-staging-rtl8723bs-fix-spelling-mistake.patch
+```
+
+### Example 2: Find Your First Contribution
+```bash
+# Find easy bugs to fix
+cd ~/linux
+find-bugs.sh
+
+# Output will show:
+# ✓ Found 23 spelling errors
+# ✓ Found 45 checkpatch issues in staging  
+# ✓ Found 12 untracked files in tools/
+
+# Pick one and fix it
+grep -n "recieve" drivers/staging/rtl8723bs/core/rtw_recv.c
+# Fix the typo, then validate as shown above
+```
+
+### Example 3: Validate a Patch Series
+```bash
+# You've made 3 related changes
+git format-patch -3 --cover-letter
+
+# Edit the cover letter
+vim 0000-cover-letter.patch
+
+# Validate the entire series
+validate-series.sh .
+
+# Check individual patches too
+for patch in 000*.patch; do
+    validate-patch.sh "$patch"
+done
+
+# Send the series
+git send-email 000*.patch
+```
+
+### Example 4: Debug a Rejected Patch
+```bash
+# Your patch was rejected for "multiple logical changes"
+# Use the validator to understand why
+validate-patch.sh rejected-patch.patch
+
+# Output:
+# ⚠ Single Purpose - Patch might be doing multiple things
+# ✗ Commit Message - Commit message seems too short
+
+# Split into separate patches
+git reset HEAD~1
+git add -p  # Stage only related changes
+git commit -m "staging: driver: fix checkpatch warnings"
+git add -p  # Stage other changes  
+git commit -m "staging: driver: remove dead code"
+```
+
+### Example 5: Test Changes Before Submission
+```bash
+# After creating your patch
+test-patch.sh 0001-my-changes.patch
+
+# This will:
+# - Apply patch in a test branch
+# - Compile test the changes
+# - Run sparse/smatch if available
+# - Clean up automatically
+
+# If compilation fails, fix and regenerate patch
+```
+
+## Real-World Examples
+
+### Case Study: CamelCase Fix Rejection
+```bash
+# WRONG: Dan Carpenter rejected this for changing a runtime variable to const
+git commit -m "staging: sm750fb: make g_fbmode const"
+
+# Use the validator to catch this:
+validate-patch.sh 0001-staging-sm750fb-make-g_fbmode-const.patch
+# Would show: ⚠ Check if variable is modified at runtime
+
+# RIGHT: Only fix the CamelCase issue
+git commit -m "staging: sm750fb: fix CamelCase variable names"
+```
+
+### Case Study: Missing Changelog in v2
+```bash
+# Greg's bot rejected this:
+Subject: [PATCH v2] staging: rtl8723bs: fix checkpatch warnings
+---
+ drivers/staging/rtl8723bs/core/rtw_efuse.c | 6 ------
+
+# Validator catches this:
+# ✗ Version Changelog - v2+ patches must have changelog after --- marker
+
+# Fixed version:
+Subject: [PATCH v2] staging: rtl8723bs: fix checkpatch warnings
+---
+v2: Split into separate patches as suggested by maintainer
+
+ drivers/staging/rtl8723bs/core/rtw_efuse.c | 6 ------
+```
+
+### Case Study: Date Problem (2025 Bug)
+```bash
+# System clock was wrong, patches showed year 2025
+# Validator immediately catches this:
+# ✗ Date Check - Patch contains future date (2025). Fix your system date!
+
+# Fix your system date first:
+sudo ntpdate pool.ntp.org
+# Then regenerate patches
 ```
 
 ## Tips
