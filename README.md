@@ -3,9 +3,9 @@
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![GitHub Issues](https://img.shields.io/github/issues/ipenas-cl/kernel-patch-validator)](https://github.com/ipenas-cl/kernel-patch-validator/issues)
 
-Never send a bad patch again! This toolkit helps you validate patches before sending them to Linux kernel mailing lists.
+Validate patches before sending them to Linux kernel mailing lists.
 
-Born from real experience of patch rejections and maintainer feedback, this validator catches the common mistakes that immediately mark you as a novice contributor.
+After getting patches rejected multiple times by maintainers, I built this validator to catch the common mistakes that get patches rejected immediately.
 
 ## Quick Start
 
@@ -176,14 +176,11 @@ Found a bug or have a suggestion? Please contribute!
 
 This toolkit is meant to help everyone avoid novice mistakes.
 
-## Inspiration
+## Background
 
-This validator was created after experiencing real patch rejections from Linux kernel maintainers including:
-- Dan Carpenter's feedback on patch quality
-- Greg KH's automated responses about patch format
-- Multiple v2, v3, v4+ iterations learning the process
+Built this after my patches kept getting rejected for basic formatting issues and style problems. Got tired of the back-and-forth with maintainers like Dan Carpenter and Greg KH over things that should be caught before submitting.
 
-Every check in this validator represents a real mistake that was made and learned from.
+Each check here is based on an actual mistake I made and had to fix.
 
 ## License
 

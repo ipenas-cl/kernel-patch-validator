@@ -39,6 +39,5 @@
 - Professional email responses
 - Cover letter structure
 
-This validator was created after experiencing multiple patch rejections
-and learning from maintainer feedback. It embodies the lessons learned
-from real kernel development experience.
+Built this after getting too many patch rejections for basic mistakes.
+Each check is based on real feedback from kernel maintainers.

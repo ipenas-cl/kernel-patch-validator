@@ -1,5 +1,5 @@
 #!/bin/bash
-# Kernel Patch Validator - Never look like a novice again!
+# Kernel Patch Validator
 # By Ignacio Peña - July 2024
 
 set -e

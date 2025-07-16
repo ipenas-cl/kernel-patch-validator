@@ -1,5 +1,5 @@
 #!/bin/bash
-# Super quick sanity check - run this ALWAYS before git send-email
+# Quick sanity check - run before git send-email
 
 PATCH="$1"
 
