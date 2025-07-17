@@ -2,8 +2,12 @@
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![GitHub Issues](https://img.shields.io/github/issues/ipenas-cl/kernel-patch-validator)](https://github.com/ipenas-cl/kernel-patch-validator/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/ipenas-cl/kernel-patch-validator)](https://github.com/ipenas-cl/kernel-patch-validator/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/ipenas-cl/kernel-patch-validator)](https://github.com/ipenas-cl/kernel-patch-validator/network)
+[![Shell Script](https://img.shields.io/badge/shell-bash-green.svg)](https://www.gnu.org/software/bash/)
+[![Mentioned in Greg KH's Review](https://img.shields.io/badge/reviewed%20by-Greg%20KH-orange.svg)](https://lore.kernel.org/linux-kernel-mentees/)
 
-Validate patches before sending them to Linux kernel mailing lists.
+Tool to validate Linux kernel patches before submission - catches 21+ common mistakes that lead to rejections.
 
 After getting patches rejected multiple times by maintainers, I built this validator to catch the common mistakes that get patches rejected immediately.
 

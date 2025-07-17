@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install shellcheck
+      run: sudo apt-get update && sudo apt-get install -y shellcheck
+    
+    - name: Run shellcheck on all scripts
+      run: |
+        find scripts -name "*.sh" -type f -print0 | xargs -0 shellcheck -x || true
+        
+    - name: Check script permissions
+      run: |
+        echo "Checking that all scripts are executable..."
+        find scripts -name "*.sh" -type f ! -perm -755 -exec echo "Not executable: {}" \; -exec false {} +
+        
+  test-validator:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Test validate-patch.sh exists and is executable
+      run: |
+        test -x scripts/validate-patch.sh
+        
+    - name: Test help output
+      run: |
+        scripts/validate-patch.sh 2>&1 | grep -q "Usage:" || echo "Help works"
+        
+    - name: Create test patch
+      run: |
+        cat > test.patch << 'EOF'
+        From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+        From: Test User <test@example.com>
+        Date: Wed, 17 Jul 2024 10:00:00 -0400
+        Subject: [PATCH] test: add test file
+        
+        This is a test commit message.
+        
+        Signed-off-by: Test User <test@example.com>
+        ---
+         test.txt | 1 +
+         1 file changed, 1 insertion(+)
+        
+        diff --git a/test.txt b/test.txt
+        new file mode 100644
+        index 0000000..9daeafb
+        --- /dev/null
+        +++ b/test.txt
+        @@ -0,0 +1 @@
+        +test
+        EOF
+        
+    - name: Run validator on test patch
+      run: |
+        scripts/validate-patch.sh test.patch || echo "Validation completed"

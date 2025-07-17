@@ -1,0 +1,10 @@
+Fixed in commit 453205e
+
+Thank you for testing and reporting these issues! All have been addressed:
+
+- Date validation now checks against current year 
+- Removed 'set -e' to show all validation errors
+- Both stable@kernel.org and stable@vger.kernel.org are now accepted
+- All emojis removed from scripts
+
+I'm also working on your suggestion to integrate checks into checkpatch.pl directly.
