@@ -169,7 +169,7 @@ echo "Final Score: $SCORE / $MAX_SCORE ($PERCENTAGE%)" | tee -a "$CHECKLIST_FILE
 echo "" | tee -a "$CHECKLIST_FILE"
 
 if [ "$PERCENTAGE" -ge 80 ]; then
-    echo -e "${GREEN}🎉 EXCELLENT! You're ready to start contributing!${NC}" | tee -a "$CHECKLIST_FILE"
+    echo -e "${GREEN}EXCELLENT! You're ready to start contributing!${NC}" | tee -a "$CHECKLIST_FILE"
     echo -e "${GREEN}Suggested next steps:${NC}"
     echo "1. Pick a simple first contribution (spelling, .gitignore)"
     echo "2. Use our find-bugs.sh script to identify opportunities"
@@ -177,7 +177,7 @@ if [ "$PERCENTAGE" -ge 80 ]; then
     echo "4. Start with staging driver cleanups"
     
 elif [ "$PERCENTAGE" -ge 60 ]; then
-    echo -e "${YELLOW}👍 GOOD! You're almost ready, just a few areas to improve.${NC}" | tee -a "$CHECKLIST_FILE"
+    echo -e "${YELLOW}GOOD! You're almost ready, just a few areas to improve.${NC}" | tee -a "$CHECKLIST_FILE"
     echo -e "${YELLOW}Focus on these areas:${NC}"
     echo "1. Strengthen technical setup and testing capabilities"
     echo "2. Practice with kernel development tools"
@@ -193,7 +193,7 @@ elif [ "$PERCENTAGE" -ge 40 ]; then
     echo "4. Join community channels and observe discussions"
     
 else
-    echo -e "${RED}🎯 GETTING STARTED! You need significant preparation.${NC}" | tee -a "$CHECKLIST_FILE"
+    echo -e "${RED}GETTING STARTED! You need significant preparation.${NC}" | tee -a "$CHECKLIST_FILE"
     echo -e "${RED}Start with these fundamentals:${NC}"
     echo "1. Learn C programming and Linux basics"
     echo "2. Complete kernel development course (LFD103)"
@@ -332,5 +332,5 @@ if [[ "$run_bugs" =~ ^[Yy] ]]; then
 fi
 
 echo ""
-echo -e "${GREEN}Good luck with your kernel contribution journey! 🚀${NC}"
+echo -e "${GREEN}Good luck with your kernel contribution journey!${NC}"
 echo -e "${BLUE}Remember: Everyone started as a beginner. Be patient and persistent!${NC}"

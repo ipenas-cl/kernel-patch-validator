@@ -1,0 +1,33 @@
+To: linux-staging@lists.linux.dev
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [ANNOUNCE] Tool to help validate staging driver patches
+
+Hi staging contributors,
+
+Since staging is where many of us start contributing to the kernel, I built
+a tool that validates patches before submission. It catches common mistakes
+that lead to immediate rejections.
+
+The tool performs 21+ checks including:
+- Proper changelog placement for v2+ patches  
+- checkpatch.pl --strict compliance (important for staging!)
+- Single logical change validation
+- Date validation (catches the 2025 bug)
+- DCO and format compliance
+
+Also includes find-bugs.sh which helps locate first contributions:
+- Spelling/grammar errors in comments
+- checkpatch issues in staging drivers
+- Missing SPDX identifiers
+
+Available at: https://github.com/ipenas-cl/kernel-patch-validator
+
+Example usage:
+$ git format-patch -1
+$ ./validate-patch.sh 0001-staging-rtl8723bs-fix-checkpatch.patch
+
+This would have saved me from several rejections when I started
+contributing to staging drivers.
+
+Thanks,
+Ignacio Peña

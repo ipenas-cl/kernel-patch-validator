@@ -1,0 +1,40 @@
+To: linux-kernel-mentees@lists.linuxfoundation.org
+Subject: [ANNOUNCE] kernel-patch-validator - Tool to validate patches before submission
+
+Hi everyone,
+
+After getting patches rejected multiple times for common mistakes, I built
+a tool to validate patches before submission. It catches issues that
+frequently lead to rejections.
+
+Features:
+- 21+ automated checks based on real maintainer feedback
+- Validates format, DCO, changelog placement, dates
+- Integrated checkpatch.pl with enhanced reporting
+- Tools to find first contributions (find-bugs.sh)
+- Patch series validation
+
+Available at: https://github.com/ipenas-cl/kernel-patch-validator
+
+Quick usage:
+$ git format-patch -1
+$ validate-patch.sh 0001-your-patch.patch
+
+Example issues it catches:
+- Future dates (2025 bug from wrong system clock)
+- Missing changelog in v2+ patches after --- marker  
+- Multiple logical changes in one patch
+- Wrong Signed-off-by format
+
+The tool includes additional scripts:
+- find-bugs.sh: Finds spelling errors, checkpatch issues
+- test-patch.sh: Safe testing workflow
+- contribution-checklist.sh: Readiness assessment
+
+Each check is based on actual rejection feedback. Hope this helps other
+newcomers avoid the same mistakes.
+
+Feedback and contributions welcome!
+
+Thanks,
+Ignacio Peña
