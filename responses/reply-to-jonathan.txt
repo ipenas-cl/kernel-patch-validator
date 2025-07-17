@@ -1,0 +1,33 @@
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Documentation: Add patch-validator to dev-tools
+
+On Thu, Jul 17, 2025 at 09:38:00AM -0600, Jonathan Corbet wrote:
+> Interesting ... overall, we don't generally have detailed documentation
+> for out-of-tree utilities, though there isn't necessarily any reason why
+> we couldn't.  But I'm curious as to why you haven't submitted the tool
+> itself?
+
+Good question. I kept it external for several reasons:
+
+1. Rapid iteration - As a new contributor, I'm still learning what checks
+   are valuable. External development lets me update quickly based on
+   feedback.
+
+2. Bash implementation - The scripts are in bash for simplicity, which
+   might not be ideal for kernel scripts/ directory.
+
+3. Overlaps with checkpatch.pl - As Greg KH suggested, many checks should
+   eventually go into checkpatch.pl rather than a separate tool.
+
+My current plan based on feedback:
+- Port the most valuable checks to checkpatch.pl (working on patches)
+- Keep workflow tools (find-bugs.sh, test-patch.sh) as external helpers
+- Maintain the external tool for experimental checks and rapid updates
+
+Would you prefer I withdraw this documentation patch until the checkpatch.pl
+integration is done, or would documenting the external tool still be valuable
+for new contributors in the meantime?
+
+Thanks,
+Ignacio

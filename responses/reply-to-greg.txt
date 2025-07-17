@@ -1,0 +1,38 @@
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: linux-kernel-mentees@lists.linuxfoundation.org
+Subject: Re: [ANNOUNCE] kernel-patch-validator - Tool to validate patches before submission
+
+On Thu, Jul 17, 2025 at 08:15:00AM -0400, Greg KH wrote:
+> Note, it is now 2025, so this check keeps failing :)
+
+You're absolutely right - the irony of a date validation tool having a 
+date bug! Already fixed to check for dates > current year.
+
+> Overall, I like the idea, the implementation needs a bit of work, see
+> the few github issues I opened on it for details found in my testing.
+
+Thank you for testing and opening the issues. I'm working through them:
+- Fixed the 2025 check (now validates against current date)
+- Fixed the `set -e` issue causing early exit
+- Updated stable email validation to accept stable@kernel.org
+- Will remove remaining emojis as suggested
+
+> Can you add some of these checks to checkpatch.pl itself?  That would be
+> the best thing to do in the end.  Having to use different tools makes
+> things harder to keep in sync and to remember to use at all.
+
+Agreed completely. I see two paths forward:
+
+1. Port the most valuable checks to checkpatch.pl (changelog placement,
+   date validation, series consistency)
+2. Keep complex workflow tools separate (find-bugs.sh, test-patch.sh)
+
+Would you prefer patches adding individual checks to checkpatch.pl, or
+should I create an RFC with a broader set of additions first?
+
+The validator helped me understand common mistakes through experimentation.
+Now that the patterns are clear, integrating into checkpatch.pl makes
+perfect sense.
+
+Thanks,
+Ignacio

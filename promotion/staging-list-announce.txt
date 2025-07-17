@@ -1,5 +1,4 @@
 To: linux-staging@lists.linux.dev
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Subject: [ANNOUNCE] Tool to help validate staging driver patches
 
 Hi staging contributors,

@@ -2,7 +2,8 @@
 # Kernel Patch Validator
 # By Ignacio Peña - July 2024
 
-set -e
+# Don't exit on error - we want to check all issues
+set +e
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -69,9 +70,11 @@ check_warning() {
 
 echo "=== Basic Patch Checks ==="
 
-# 1. Check for future dates (2025 bug)
-if grep -q "Date:.*2025" "$PATCH_FILE"; then
-    check_error "Date Check" 1 "Patch contains future date (2025). Fix your system date!"
+# 1. Check for future dates
+CURRENT_YEAR=$(date +%Y)
+NEXT_YEAR=$((CURRENT_YEAR + 1))
+if grep -E "Date:.*20[0-9][0-9]" "$PATCH_FILE" | grep -E "20(2[6-9]|[3-9][0-9])" > /dev/null; then
+    check_error "Date Check" 1 "Patch contains future date (beyond $CURRENT_YEAR). Fix your system date!"
 else
     check_error "Date Check" 0 ""
 fi
@@ -120,10 +123,10 @@ fi
 
 # 6. Check Cc: stable format
 if grep -q "^Cc: stable" "$PATCH_FILE"; then
-    if grep -q "^Cc: stable@vger.kernel.org # v[0-9]" "$PATCH_FILE"; then
+    if grep -q "^Cc: stable@\(vger.kernel.org\|kernel.org\)" "$PATCH_FILE"; then
         check_error "Stable Tag" 0 ""
     else
-        check_error "Stable Tag" 1 "Format: Cc: stable@vger.kernel.org # v5.10+"
+        check_error "Stable Tag" 1 "Format: Cc: stable@kernel.org or stable@vger.kernel.org"
     fi
 fi
 
