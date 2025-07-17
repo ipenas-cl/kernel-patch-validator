@@ -415,6 +415,17 @@ Each check here is based on an actual mistake I made and had to fix.
 
 GPL-2.0 (same as Linux kernel) - see [LICENSE](LICENSE) file.
 
+## Related Resources
+
+- [Greg KH's kernel-tutorial](https://github.com/gregkh/kernel-tutorial) - Essential tutorial on writing and submitting kernel patches
+- [Greg KH's kernel-development](https://github.com/gregkh/kernel-development) - Presentation on how Linux kernel is developed
+- [The kernel development process](https://www.kernel.org/doc/html/latest/process/)
+- [Linux Kernel Mentorship Program](https://wiki.linuxfoundation.org/lkmp)
+- [kernelnewbies.org](https://kernelnewbies.org/) - Resources for kernel beginners
+
+This validator complements these resources by automating the checks that
+catch common mistakes before submission.
+
 ## Acknowledgments
 
 - Linux kernel maintainers for their patience with novice contributors
