@@ -73,7 +73,8 @@ echo "=== Basic Patch Checks ==="
 # 1. Check for future dates
 CURRENT_YEAR=$(date +%Y)
 NEXT_YEAR=$((CURRENT_YEAR + 1))
-if grep -E "Date:.*20[0-9][0-9]" "$PATCH_FILE" | grep -E "20(2[6-9]|[3-9][0-9])" > /dev/null; then
+PATCH_YEAR=$(grep -m1 -E "^Date:" "$PATCH_FILE" | grep -oE "\b(19|20)[0-9]{2}\b" | head -1)
+if [ -n "$PATCH_YEAR" ] && [ "$PATCH_YEAR" -gt "$CURRENT_YEAR" ]; then
     check_error "Date Check" 1 "Patch contains future date (beyond $CURRENT_YEAR). Fix your system date!"
 else
     check_error "Date Check" 0 ""
